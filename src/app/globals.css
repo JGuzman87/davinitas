@@ -6,3 +6,10 @@
   --foreground: #171717;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+ 
+  min-height: 100vh
+}
+
