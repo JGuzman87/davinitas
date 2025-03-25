@@ -7,15 +7,15 @@ interface Client {
   last: string,
   company: string,
   email: string,
-  phone: number,
-  date_time: any
+  phone: string,
+  date_time: string
 }
 
 
 
 const Form = () => {
 
-  const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: 0 , date_time: '' })
+  const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: '' , date_time: '' })
 
   const handleChange = (e:any) => {
     if (e.target.name === 'first') {
