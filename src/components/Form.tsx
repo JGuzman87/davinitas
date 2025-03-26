@@ -18,24 +18,43 @@ const Form = () => {
   const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: '' , date_time: '' })
 
   const handleChange = (e:any) => {
-    if (e.target.name === 'first') {
-      setClient({...client, first: e.target.value});
-    } else if(e.target.name === 'last') {
-      setClient({...client, last: e.target.value});
-    }else if (e.target.name === 'company') {
-      setClient({...client, company: e.target.value});
-    } else if(e.target.name === 'email') {
-      setClient({...client, email: e.target.value})
-    }else if(e.target.name === 'phone') {
-      setClient({...client, phone: e.target.value})
-    }else if(e.target.name === 'date_time') {
-      setClient({...client, date_time: e.target.value})
-    }
+
+//extract name and value from event.target
+    const {name, value } = e.target;
+//name key updates to the input value
+ setClient(prevClient => ({...prevClient, [name]: value}));
+
+    // if (e.target.name === 'first') {
+    //   setClient({...client, first: e.target.value});
+    // } else if(e.target.name === 'last') {
+    //   setClient({...client, last: e.target.value});
+    // }else if (e.target.name === 'company') {
+    //   setClient({...client, company: e.target.value});
+    // } else if(e.target.name === 'email') {
+    //   setClient({...client, email: e.target.value})
+    // }else if(e.target.name === 'phone') {
+    //   setClient({...client, phone: e.target.value})
+    // }else if(e.target.name === 'date_time') {
+    //   setClient({...client, date_time: e.target.value})
+    // }
 
   }
 
+  const handleClick = (e:any) => {
+    e.preventDefault();
+    
+     if (client?.first === '') {
+            console.log('please enter valid data')
+          }else {
+            
+            console.log(client);
+          }
+          
+        }
+  
+
   return (
-    <form className="form-container bg-amber-500">
+    <form className="form-container shadow-2xl">
       <label className="floating-label">
         <span>First</span>
         <input
@@ -92,7 +111,7 @@ const Form = () => {
         />
       </label>
       <label className="floating-label">
-        <span>date & time</span>
+        <p>date and time</p>
         <input
           value={client?.date_time}
           name="date_time"
@@ -103,10 +122,10 @@ const Form = () => {
         />
       </label>
       <button
-        onClick={(e: any) => {
-          e.preventDefault();
-          console.log(client);
-        }}
+      className='bg-amber-500'
+        onClick={handleClick
+
+         }
       >
         Get Started Now
       </button>
