@@ -16,12 +16,13 @@ interface Client {
 const Form = () => {
 
   const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: '' , date_time: '' })
+  
 
   const handleChange = (e:any) => {
 
 //extract name and value from event.target
     const {name, value } = e.target;
-//name key updates to the input value
+//name element updates to the input value
  setClient(prevClient => ({...prevClient, [name]: value}));
 
     // if (e.target.name === 'first') {
@@ -42,15 +43,18 @@ const Form = () => {
 
   const handleClick = (e:any) => {
     e.preventDefault();
-    
-     if (client?.first === '') {
-            console.log('please enter valid data')
-          }else {
-            
-            console.log(client);
-          }
-          
-        }
+
+    //This grabs all the values from the client object and puts them into an array.
+    //	.every() is an array method that checks every item in an array and returns true only if all items pass the test.
+    const isFormComplete = Object.values(client).every(
+      (value) => value.trim() !== ""
+    ); 
+    if (!isFormComplete) {
+      console.log('Please fill all fields');
+    } else {
+      console.log(client);
+    }
+  }
   
 
   return (
@@ -111,7 +115,7 @@ const Form = () => {
         />
       </label>
       <label className="floating-label">
-        <p>date and time</p>
+        <span>date & time</span>
         <input
           value={client?.date_time}
           name="date_time"
