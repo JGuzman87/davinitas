@@ -19,12 +19,11 @@ const Form = () => {
   const [error, setError] = useState('');
   
 
-  const handleChange = (e:any) => {
-
-//extract name and value from event.target
-    const {name, value } = e.target;
-//name element updates to the input value
- setClient(prevClient => ({...prevClient, [name]: value}));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //extract name and value from event.target
+    const { name, value } = e.target;
+    //name element updates to the input value
+    setClient((prevClient) => ({ ...prevClient, [name]: value }));
 
     // if (e.target.name === 'first') {
     //   setClient({...client, first: e.target.value});
@@ -39,24 +38,23 @@ const Form = () => {
     // }else if(e.target.name === 'date_time') {
     //   setClient({...client, date_time: e.target.value})
     // }
+  };
 
-  }
-
-  const handleClick = (e:any) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     //This grabs all the values from the client object and puts them into an array.
     //	.every() is an array method that checks every item in an array and returns true only if all items pass the test.
     const isFormComplete = Object.values(client).every(
       (value) => value.trim() !== ""
-    ); 
+    );
     if (!isFormComplete) {
-     setError('Please fill all fields');
+      setError("Please fill all fields");
     } else {
-      setError('');
+      setError("");
       console.log(client);
     }
-  }
+  };
   
 
   return (
