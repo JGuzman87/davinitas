@@ -16,6 +16,7 @@ interface Client {
 const Form = () => {
 
   const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: '' , date_time: '' })
+  const [error, setError] = useState('');
   
 
   const handleChange = (e:any) => {
@@ -50,8 +51,9 @@ const Form = () => {
       (value) => value.trim() !== ""
     ); 
     if (!isFormComplete) {
-      console.log('Please fill all fields');
+     setError('Please fill all fields');
     } else {
+      setError('');
       console.log(client);
     }
   }
@@ -92,16 +94,19 @@ const Form = () => {
           onChange={handleChange}
         />
       </label>
+
       <label className="floating-label">
         <span>email</span>
         <input
           value={client?.email}
           name="email"
           type="email"
+          required
           placeholder="enter email"
-          className="input input-md"
+          className="input validator input-md"
           onChange={handleChange}
         />
+        <div className="validator-hint">Enter valid email address</div>
       </label>
       <label className="floating-label">
         <span>Phone</span>
@@ -125,14 +130,10 @@ const Form = () => {
           onChange={handleChange}
         />
       </label>
-      <button
-      className='bg-amber-500'
-        onClick={handleClick
-
-         }
-      >
+      <button className="btn btn-warning" onClick={handleClick}>
         Get Started Now
       </button>
+      <p style={{ color: "red" }}>{error}</p>
     </form>
   );
 }
