@@ -1,5 +1,5 @@
 "use client";
-
+import './Form.css';
 import {useState} from 'react';
 
 interface Client {
@@ -16,7 +16,7 @@ interface Client {
 const Form = () => {
 
   const [client, setClient] = useState <Client>({first: '', last: '', company: '', email: '', phone: '' , date_time: '' })
-  const [error, setError] = useState('');
+  
   
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,113 +25,109 @@ const Form = () => {
     //name element updates to the input value
     setClient((prevClient) => ({ ...prevClient, [name]: value }));
 
-    // if (e.target.name === 'first') {
-    //   setClient({...client, first: e.target.value});
-    // } else if(e.target.name === 'last') {
-    //   setClient({...client, last: e.target.value});
-    // }else if (e.target.name === 'company') {
-    //   setClient({...client, company: e.target.value});
-    // } else if(e.target.name === 'email') {
-    //   setClient({...client, email: e.target.value})
-    // }else if(e.target.name === 'phone') {
-    //   setClient({...client, phone: e.target.value})
-    // }else if(e.target.name === 'date_time') {
-    //   setClient({...client, date_time: e.target.value})
-    // }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(client)
 
     //This grabs all the values from the client object and puts them into an array.
     //	.every() is an array method that checks every item in an array and returns true only if all items pass the test.
-    const isFormComplete = Object.values(client).every(
-      (value) => value.trim() !== ""
-    );
-    if (!isFormComplete) {
-      setError("Please fill all fields");
-    } else {
-      setError("");
-      console.log(client);
-    }
+    // const isFormComplete = Object.values(client).every(
+    //   (value) => value.trim() !== ""
+    // );
+    // if (!isFormComplete) {
+    //   setError("Please fill all fields");
+    // } else {
+    //   setError("");
+    //   console.log(client);
+    // }
   };
   
 
   return (
-    <form className="form-container shadow-2xl">
-      <label className="floating-label">
-        <span>First</span>
+    <form className="form-container shadow-2xl" onSubmit={handleClick}>
+      <label htmlFor="first" className="first-last-label floating-label">
+        First Name:
         <input
           value={client?.first}
           name="first"
           type="text"
           placeholder="enter first name"
-          className="input input-md"
+          className="input validator input-md w-50"
           onChange={handleChange}
+          required
         />
-      </label>
-      <label className="floating-label">
-        <span>Last</span>
+        Last Name:
         <input
           value={client?.last}
           name="last"
           type="text"
           placeholder="enter last name"
-          className="input input-md"
+          className="input validator input-md w-50"
           onChange={handleChange}
-        />
-      </label>
-      <label className="floating-label">
-        <span>Company</span>
-        <input
-          value={client?.company}
-          name="company"
-          type="text"
-          placeholder="enter company name"
-          className="input input-md"
-          onChange={handleChange}
+          required
         />
       </label>
 
-      <label className="floating-label">
-        <span>email</span>
-        <input
-          value={client?.email}
-          name="email"
-          type="email"
-          required
-          placeholder="enter email"
-          className="input validator input-md"
-          onChange={handleChange}
-        />
-        <div className="validator-hint">Enter valid email address</div>
+
+      <label htmlFor="company" className="floating-label">
+        Company:
       </label>
-      <label className="floating-label">
-        <span>Phone</span>
-        <input
-          value={client?.phone}
-          name="phone"
-          type="text"
-          placeholder="phone number"
-          className="input input-md"
-          onChange={handleChange}
-        />
+      <input
+        value={client?.company}
+        name="company"
+        type="text"
+        placeholder="enter company name"
+        className="input validator input-md"
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="email" className="floating-label">
+        Email:
       </label>
-      <label className="floating-label">
-        <span>date & time</span>
-        <input
-          value={client?.date_time}
-          name="date_time"
-          type="text"
-          placeholder="type date and time"
-          className="input input-md"
-          onChange={handleChange}
-        />
+      <input
+        value={client?.email}
+        name="email"
+        type="email"
+        placeholder="enter email"
+        className="input validator input-md"
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="phone" className="floating-label">
+        Phone:{" "}
       </label>
-      <button className="btn btn-warning" onClick={handleClick}>
+
+      <input
+        value={client?.phone}
+        name="phone"
+        type="text"
+        placeholder="phone number"
+        className="input validator input-md"
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="date_time" className="floating-label">
+        Preferred Date & Time
+      </label>
+
+      <input
+        value={client?.date_time}
+        name="date_time"
+        type="text"
+        placeholder="type date and time"
+        className="input validator input-md"
+        onChange={handleChange}
+        required
+      />
+
+      <button className="btn btn-warning" type="submit">
         Get Started Now
       </button>
-      <p style={{ color: "red" }}>{error}</p>
     </form>
   );
 }

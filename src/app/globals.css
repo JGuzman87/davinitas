@@ -13,21 +13,3 @@ body {
   min-height: 100vh
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding: 2rem;
-  align-items: center;
-  width: 50%;
-  gap: 20px;
-  background-color: rgb(224, 224, 224);
-  
-
-}
-label {
-  width: 50%;
-}
-input {
-  width: 100%;
-}
